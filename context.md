@@ -61,7 +61,7 @@
 - Documentation/README.
 
 ## Current Status
-- **Current phase**: Phase 5
+- **Current phase**: Phase 6
 - **Overall status**: In progress
 
 ## Progress Tracker
@@ -79,7 +79,7 @@
   - `/admin/config/event-registrar/notifications` (`NotificationSettingsForm`)
 
 ### In Progress
-- Phase 1: enable module and verify tables (pending Drupal site / Drush availability).
+- Phase 6: final submission artifacts (README + composer.lock + SQL dump) and final QA.
 
 ### Done (Implemented)
 - Phase 3: public registration form (AJAX + validation + persistence).
@@ -130,6 +130,7 @@
   - `event_registrations`
 - Generated SQL dump for custom tables:
   - `event_registrar_tables.sql`
+- Added `composer.json` and `composer.lock` to this repository root (copied from the external Drupal site) to satisfy submission format.
 
 ## Notes / Decisions
 - (none yet)

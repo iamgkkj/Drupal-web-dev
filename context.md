@@ -61,7 +61,7 @@
 - Documentation/README.
 
 ## Current Status
-- **Current phase**: Phase 3
+- **Current phase**: Phase 5
 - **Overall status**: In progress
 
 ## Progress Tracker
@@ -80,7 +80,11 @@
 
 ### In Progress
 - Phase 1: enable module and verify tables (pending Drupal site / Drush availability).
+
+### Done (Implemented)
 - Phase 3: public registration form (AJAX + validation + persistence).
+- Phase 4: admin registrations listing + CSV export.
+- Phase 5: email notifications.
 
 ### Phase 3 Notes
 - Route added: `/event/register` (`EventRegistrationForm`).
@@ -101,8 +105,16 @@
 - CSV export implemented for the selected date + event.
 
 ### Remaining
-- Phase 5: mail integration
 - Phase 6: QA + submission artifacts
+
+### Phase 5 Notes
+- Added `event_registrar.module` with `hook_mail()` keys:
+  - `user_confirmation`
+  - `admin_notification`
+- Registration submission now sends:
+  - User confirmation email
+  - Admin notification email (only if enabled in config and admin email is set)
+- Email content includes: Name, Event date, Event Name, Category (plus other submitted fields).
 
 ## What’s Working
 - Module skeleton files exist in the expected module folder.

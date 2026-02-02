@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+function event_registrar_mail($key, &$message, $params) {
+  $message['headers']['Content-Type'] = 'text/plain; charset=UTF-8';
+
+  $name = (string) ($params['full_name'] ?? '');
+  $event_date = (string) ($params['event_date'] ?? '');
+  $event_name = (string) ($params['event_name'] ?? '');
+  $category = (string) ($params['category'] ?? '');
+  $email = (string) ($params['email'] ?? '');
+  $college_name = (string) ($params['college_name'] ?? '');
+  $department = (string) ($params['department'] ?? '');
+
+  switch ($key) {
+    case 'user_confirmation':
+      $message['subject'] = 'Event registration confirmation';
+      $message['body'][] = 'Thank you for registering.';
+      $message['body'][] = '';
+      $message['body'][] = 'Name: ' . $name;
+      $message['body'][] = 'Email: ' . $email;
+      $message['body'][] = 'Category: ' . $category;
+      $message['body'][] = 'Event Date: ' . $event_date;
+      $message['body'][] = 'Event Name: ' . $event_name;
+      $message['body'][] = 'College Name: ' . $college_name;
+      $message['body'][] = 'Department: ' . $department;
+      break;
+
+    case 'admin_notification':
+      $message['subject'] = 'New event registration';
+      $message['body'][] = 'A new event registration has been submitted.';
+      $message['body'][] = '';
+      $message['body'][] = 'Name: ' . $name;
+      $message['body'][] = 'Email: ' . $email;
+      $message['body'][] = 'Category: ' . $category;
+      $message['body'][] = 'Event Date: ' . $event_date;
+      $message['body'][] = 'Event Name: ' . $event_name;
+      $message['body'][] = 'College Name: ' . $college_name;
+      $message['body'][] = 'Department: ' . $department;
+      break;
+  }
+}

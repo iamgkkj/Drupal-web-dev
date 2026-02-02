@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\event_registrar\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Time\TimeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -22,11 +25,20 @@ final class EventRegistrationForm extends FormBase {
 
   private TimeInterface $time;
 
-  public function __construct(Connection $database, RequestStack $request_stack, MessengerInterface $messenger, TimeInterface $time) {
+  private MailManagerInterface $mailManager;
+
+  private ConfigFactoryInterface $configFactory;
+
+  private LanguageManagerInterface $languageManager;
+
+  public function __construct(Connection $database, RequestStack $request_stack, MessengerInterface $messenger, TimeInterface $time, MailManagerInterface $mail_manager, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
     $this->database = $database;
     $this->requestStack = $request_stack;
     $this->messenger = $messenger;
     $this->time = $time;
+    $this->mailManager = $mail_manager;
+    $this->configFactory = $config_factory;
+    $this->languageManager = $language_manager;
   }
 
   public static function create(ContainerInterface $container): self {
@@ -34,7 +46,10 @@ final class EventRegistrationForm extends FormBase {
       $container->get('database'),
       $container->get('request_stack'),
       $container->get('messenger'),
-      $container->get('datetime.time')
+      $container->get('datetime.time'),
+      $container->get('plugin.manager.mail'),
+      $container->get('config.factory'),
+      $container->get('language_manager')
     );
   }
 
@@ -224,6 +239,36 @@ final class EventRegistrationForm extends FormBase {
         'created' => $this->time->getCurrentTime(),
       ])
       ->execute();
+
+    $params = [
+      'full_name' => (string) $form_state->getValue('full_name'),
+      'email' => (string) $form_state->getValue('email'),
+      'college_name' => (string) $form_state->getValue('college_name'),
+      'department' => (string) $form_state->getValue('department'),
+      'category' => (string) $event['category'],
+      'event_date' => (string) $event['event_date'],
+      'event_name' => (string) $event['event_name'],
+    ];
+
+    $langcode = $this->languageManager->getCurrentLanguage()->getId();
+    $site_mail = (string) $this->configFactory->get('system.site')->get('mail');
+
+    $user_mail = (string) $form_state->getValue('email');
+    $user_send = $this->mailManager->mail('event_registrar', 'user_confirmation', $user_mail, $langcode, $params, $site_mail);
+    if (empty($user_send['result'])) {
+      $this->messenger->addError($this->t('Registration saved, but we were unable to send the confirmation email.'));
+    }
+
+    $notification_config = $this->configFactory->get('event_registrar.notification_settings');
+    $admin_enabled = (bool) $notification_config->get('enable_admin_notifications');
+    $admin_email = (string) $notification_config->get('admin_email');
+
+    if ($admin_enabled && $admin_email !== '') {
+      $admin_send = $this->mailManager->mail('event_registrar', 'admin_notification', $admin_email, $langcode, $params, $site_mail);
+      if (empty($admin_send['result'])) {
+        $this->messenger->addError($this->t('Registration saved, but we were unable to send the admin notification email.'));
+      }
+    }
 
     $this->messenger->addStatus($this->t('Registration submitted successfully.'));
   }

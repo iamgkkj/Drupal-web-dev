@@ -61,7 +61,7 @@
 - Documentation/README.
 
 ## Current Status
-- **Current phase**: Phase 1
+- **Current phase**: Phase 3
 - **Overall status**: In progress
 
 ## Progress Tracker
@@ -74,22 +74,33 @@
 - Created database schema file:
   - `web/modules/custom/event_registrar/event_registrar.install` (tables: `event_configurations`, `event_registrations`)
 - Initialized git repo changes and pushed to `origin/main`.
+- Implemented admin routes and forms:
+  - `/admin/config/event-registrar/create-event` (`EventConfigForm`)
+  - `/admin/config/event-registrar/notifications` (`NotificationSettingsForm`)
 
 ### In Progress
 - Phase 1: enable module and verify tables (pending Drupal site / Drush availability).
+- Phase 3: public registration form (AJAX + validation + persistence).
+
+### Phase 3 Notes
+- Route added: `/event/register` (`EventRegistrationForm`).
+- Chained selects implemented: Category -> Event Date -> Event Name (AJAX).
+- Validation implemented:
+  - No special characters for Name/College/Department.
+  - Duplicate check: Email + Event Date.
+  - Registration window check for selected event.
+- Submission implemented: insert into `event_registrations`.
 
 ### Remaining
-- Phase 2: admin forms (event config + notification settings)
-- Phase 3: public registration form (AJAX + validation + persistence)
 - Phase 4: admin reporting + CSV
 - Phase 5: mail integration
 - Phase 6: QA + submission artifacts
 
 ## What’s Working
 - Module skeleton files exist in the expected module folder.
+- Admin configuration forms and routes have been added to the module.
 
 ## What’s Not Working / Blockers
-- Exact DB column requirements for `event_configurations` / `event_registrations` are not available in-repo.
 - Repo does not currently include a full Drupal codebase (`web/` was created for the module, but Drupal core/site is not present), so enabling via Drush cannot be validated yet.
 
 ## Notes / Decisions

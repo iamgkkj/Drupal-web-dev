@@ -1,0 +1,31 @@
+event_registrar.create_event:
+  path: '/admin/config/event-registrar/create-event'
+  defaults:
+    _form: '\Drupal\event_registrar\Form\EventConfigForm'
+    _title: 'Create event'
+  requirements:
+    _permission: 'administer event configuration'
+
+event_registrar.notifications:
+  path: '/admin/config/event-registrar/notifications'
+  defaults:
+    _form: '\Drupal\event_registrar\Form\NotificationSettingsForm'
+    _title: 'Event registrar notifications'
+  requirements:
+    _permission: 'administer event configuration'
+
+event_registrar.register:
+  path: '/event/register'
+  defaults:
+    _form: '\Drupal\event_registrar\Form\EventRegistrationForm'
+    _title: 'Event registration'
+  requirements:
+    _permission: 'access event registration'
+
+event_registrar.registrations:
+  path: '/admin/config/event-registrar/registrations'
+  defaults:
+    _form: '\Drupal\event_registrar\Form\RegistrationFilterForm'
+    _title: 'Event registrations'
+  requirements:
+    _permission: 'view event registrations'

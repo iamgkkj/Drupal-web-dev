@@ -1,0 +1,20 @@
+event_registrar.create_event:
+  title: 'Create event'
+  description: 'Create event configurations.'
+  route_name: event_registrar.create_event
+  parent: system.admin_config
+  weight: 100
+
+event_registrar.notifications:
+  title: 'Event registrar notifications'
+  description: 'Configure event registrar notification settings.'
+  route_name: event_registrar.notifications
+  parent: system.admin_config
+  weight: 101
+
+event_registrar.registrations:
+  title: 'Event registrations'
+  description: 'View and export event registrations.'
+  route_name: event_registrar.registrations
+  parent: system.admin_config
+  weight: 102

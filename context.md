@@ -91,8 +91,16 @@
   - Registration window check for selected event.
 - Submission implemented: insert into `event_registrations`.
 
+### Phase 4 Notes
+- Route added: `/admin/config/event-registrar/registrations` (`RegistrationFilterForm`).
+- Filters implemented:
+  - Event Date dropdown
+  - Event Name dropdown (AJAX depends on selected date)
+- Displays total participants for selected date + event.
+- Displays results table (AJAX): Name, Email, Event Date, College Name, Department, Submission Date.
+- CSV export implemented for the selected date + event.
+
 ### Remaining
-- Phase 4: admin reporting + CSV
 - Phase 5: mail integration
 - Phase 6: QA + submission artifacts
 

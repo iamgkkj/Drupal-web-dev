@@ -121,7 +121,15 @@
 - Admin configuration forms and routes have been added to the module.
 
 ## What’s Not Working / Blockers
-- Repo does not currently include a full Drupal codebase (`web/` was created for the module, but Drupal core/site is not present), so enabling via Drush cannot be validated yet.
+- Repo does not currently include a full Drupal codebase (`web/` was created for the module, but Drupal core/site is not present), so enabling via Drush must be validated in an external Drupal site.
+
+## QA / Verification
+- Module synced and cache rebuilt successfully in external Drupal site: `/home/gopal/Desktop/event-site`.
+- Verified tables exist:
+  - `event_configurations`
+  - `event_registrations`
+- Generated SQL dump for custom tables:
+  - `event_registrar_tables.sql`
 
 ## Notes / Decisions
 - (none yet)

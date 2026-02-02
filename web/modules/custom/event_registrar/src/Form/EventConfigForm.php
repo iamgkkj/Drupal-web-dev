@@ -14,8 +14,6 @@ final class EventConfigForm extends FormBase {
 
   private Connection $database;
 
-  private MessengerInterface $messenger;
-
   public function __construct(Connection $database, MessengerInterface $messenger) {
     $this->database = $database;
     $this->messenger = $messenger;

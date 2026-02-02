@@ -13,27 +13,17 @@ use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Time\TimeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 final class EventRegistrationForm extends FormBase {
 
   private Connection $database;
 
-  private RequestStack $requestStack;
-
-  private MessengerInterface $messenger;
-
   private TimeInterface $time;
 
   private MailManagerInterface $mailManager;
 
-  private ConfigFactoryInterface $configFactory;
-
-  private LanguageManagerInterface $languageManager;
-
-  public function __construct(Connection $database, RequestStack $request_stack, MessengerInterface $messenger, TimeInterface $time, MailManagerInterface $mail_manager, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
+  public function __construct(Connection $database, MessengerInterface $messenger, TimeInterface $time, MailManagerInterface $mail_manager, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
     $this->database = $database;
-    $this->requestStack = $request_stack;
     $this->messenger = $messenger;
     $this->time = $time;
     $this->mailManager = $mail_manager;
@@ -44,7 +34,6 @@ final class EventRegistrationForm extends FormBase {
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('database'),
-      $container->get('request_stack'),
       $container->get('messenger'),
       $container->get('datetime.time'),
       $container->get('plugin.manager.mail'),

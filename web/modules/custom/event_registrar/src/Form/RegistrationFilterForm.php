@@ -134,7 +134,6 @@ final class RegistrationFilterForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    // No-op; this form is primarily AJAX-driven.
   }
 
   public function exportCsv(array &$form, FormStateInterface $form_state): void {

@@ -1,0 +1,9 @@
+{
+  "name": "drupal/event_registrar",
+  "description": "Provides event configuration and public event registration forms.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "drupal/core": "^10 || ^11"
+  }
+}

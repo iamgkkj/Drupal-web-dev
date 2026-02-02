@@ -1,0 +1,5 @@
+name: Event Registrar
+type: module
+description: Provides event configuration and public event registration forms.
+package: Custom
+core_version_requirement: ^10 || ^11

@@ -1,0 +1,11 @@
+# Env files
+.env
+.env.*
+.envrc
+*.env
+
+# IDE/AI rules
+.windsurf/
+
+# Screening task attachment
+Web development Screening Task.pdf

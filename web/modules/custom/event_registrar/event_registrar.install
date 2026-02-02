@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Event Registrar module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function event_registrar_schema() {
+  $schema = [];
+
+  $schema['event_configurations'] = [
+    'description' => 'Stores event definitions and registration windows.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'reg_start_date' => [
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+      ],
+      'reg_end_date' => [
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+      ],
+      'event_date' => [
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+      ],
+      'event_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'category' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'category' => ['category'],
+      'event_date' => ['event_date'],
+    ],
+    'unique keys' => [
+      'event_unique' => ['category', 'event_date', 'event_name'],
+    ],
+  ];
+
+  $schema['event_registrations'] = [
+    'description' => 'Stores user registrations for events.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'full_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'email' => [
+        'type' => 'varchar',
+        'length' => 254,
+        'not null' => TRUE,
+      ],
+      'college_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'department' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'category' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ],
+      'event_date' => [
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+      ],
+      'event_name_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'created' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'event_name_id' => ['event_name_id'],
+      'event_date' => ['event_date'],
+    ],
+    'unique keys' => [
+      'email_event_date' => ['email', 'event_date'],
+    ],
+    'foreign keys' => [
+      'event_configuration' => [
+        'table' => 'event_configurations',
+        'columns' => ['event_name_id' => 'id'],
+      ],
+    ],
+  ];
+
+  return $schema;
+}

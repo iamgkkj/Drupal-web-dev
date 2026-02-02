@@ -71,10 +71,11 @@
   - `web/modules/custom/event_registrar/event_registrar.info.yml`
   - `web/modules/custom/event_registrar/composer.json`
   - `web/modules/custom/event_registrar/event_registrar.permissions.yml`
+- Created database schema file:
+  - `web/modules/custom/event_registrar/event_registrar.install` (tables: `event_configurations`, `event_registrations`)
 - Initialized git repo changes and pushed to `origin/main`.
 
 ### In Progress
-- Phase 1: database schema (`event_registrar.install` with `hook_schema()`).
 - Phase 1: enable module and verify tables (pending Drupal site / Drush availability).
 
 ### Remaining

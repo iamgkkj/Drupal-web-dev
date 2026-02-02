@@ -56,7 +56,7 @@ Stores user registrations:
 - `created` (timestamp)
 
 SQL dump for the custom tables:
-- `event_registrar_tables.sql`
+- `event_registrar_tables.sql` (schema-only, two custom tables only)
 
 ## Validation rules
 - Prevents duplicate registrations using:

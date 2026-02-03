@@ -9,3 +9,16 @@
 
 # Screening task attachment
 Web development Screening Task.pdf
+
+# Drupal site local-only files (do not commit)
+web/sites/default/settings.php
+web/sites/default/services.yml
+web/sites/default/files/
+
+# Dependencies and build artifacts
+vendor/
+node_modules/
+
+# OS/editor junk
+.DS_Store
+Thumbs.db

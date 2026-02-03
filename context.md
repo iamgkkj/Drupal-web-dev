@@ -133,4 +133,5 @@
 - Added `composer.json` and `composer.lock` to this repository root (copied from the external Drupal site) to satisfy submission format.
 
 ## Notes / Decisions
-- (none yet)
+- Updated `.gitignore` to exclude environment-specific files (settings.php, services.yml, sites/default/files/), dependencies (vendor/), and editor/OS artifacts. Added on 2026-02-03.
+- Expanded `README.md` with full local URLs and a concise local testing guide (how to start server, login URL, and test paths). Added on 2026-02-03.
